@@ -29,7 +29,7 @@ I am sure some things will be missing here. You need some basic skills to instal
     2. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
 
 # Readings example
-![Screenshot](screenshots/readingShell.png)
+![Screenshot](screenshots/readingShell.png | width=100)
 
 # Reading example (browser)
 ![Screenshot](screenshots/readingBrowser.png)
