@@ -14,4 +14,13 @@ The idea is to measure the force required to extrude filament of a direct extrud
 - Let websocketd handle communication between a browser and a html page to display the readings.
 
 # Step by step
-tbd
+I am sure some things will be missing here. You need some basic skills to install required packages yourself if neccessary...
+
+1 Install pigpio http://abyz.me.uk/rpi/pigpio/download.html
+2 (if you want to visualize the data in a browser)
+2.1 Install websocketd https://github.com/joewalnes/websocketd/releases
+2.1.1 Pick the arm version for the Pi: e.g. websocketd-0.3.1-linux_arm.zip
+2.2 Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)
+2.2.1 Copy weigh.html to /var/www/html/ for making it accessible to the outside world
+2.2.2 Get the two .js files from here https://github.com/perrygeo/pi_sensor_realtime/tree/master/static/vendor and copy them to /var/www/html/
+3 Compile
