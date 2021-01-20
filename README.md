@@ -9,12 +9,12 @@ On my way of reading out data from the HX711 with the Pi Zero W, I came across a
 # My application
 The idea is to measure the force required to extrude filament of a direct extruder of a 3D printer in realtime for dialing in retraction settings, etc. (of course you can use the library for any other application.
 
-# Approach
+# The approach
 - Port the pigpio based solution from Python to C for speed improvement. This way, we do not have to rely on the pigpiod daemon. As an initial shot, this lib does not feature everything of the Phython tool - but does the job. :) Feel free to improve it.
 - Redirect the readings via stdout to a file. 
 - Let websocketd handle communication between a browser and a html page to display the readings.
 
-# Step by step
+# Step by step procedure
 I am sure some things will be missing here. You need some basic skills to install required packages yourself if neccessary...
 
 1. Install pigpio http://abyz.me.uk/rpi/pigpio/download.html
@@ -29,5 +29,7 @@ I am sure some things will be missing here. You need some basic skills to instal
     2. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
 
 # Readings example
-![Screenshot](readingShell.png)
+<img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingShell.png" width="250">
 
+# Reading example (browser)
+<img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingBrowser.png" width="700">
