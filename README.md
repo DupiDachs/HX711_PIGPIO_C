@@ -21,8 +21,8 @@ I am sure some things will be missing here. You need some basic skills to instal
 2. (if you want to visualize the data in a browser)
     1. Install websocketd https://github.com/joewalnes/websocketd/releases
        Pick the arm version for the Pi: e.g. websocketd-0.3.1-linux_arm.zip
-    2. Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)
-       Copy weigh.html to /var/www/html/ for making it accessible to the outside world
+    2. Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)  
+       Copy weigh.html to /var/www/html/ for making it accessible to the outside world  
        Get the two .js files from here https://github.com/perrygeo/pi_sensor_realtime/tree/master/static/vendor and copy them to /var/www/html/
 3. Compile HX711.cpp: "gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt"
     1. Try it out: "sudo ./HX711"
