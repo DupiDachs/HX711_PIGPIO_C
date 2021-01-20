@@ -24,9 +24,10 @@ I am sure some things will be missing here. You need some basic skills to instal
     2. Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)  
        Copy weigh.html to /var/www/html/ for making it accessible to the outside world  
        Get the two .js files from here https://github.com/perrygeo/pi_sensor_realtime/tree/master/static/vendor and copy them to /var/www/html/
-3. Compile HX711.cpp: "gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt"
-    1. Try it out: "sudo ./HX711"
-    2. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
+3. Adjust HX711.cpp to your needs. Take a look at the first lines of the code for user settings, like Gain, etc.
+    1. Compile HX711.cpp: "gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt"
+    2. Try it out: "sudo ./HX711"
+    3. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
 
 # Readings example
 Output is the Unix epoch time in seconds and the reading in gram, separated by a comma. You can observe that every ~11ms, a new reading pops up.  
