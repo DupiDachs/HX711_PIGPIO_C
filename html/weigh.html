@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pi sensor real-time plots</title>
+    <script type="text/javascript" src="smoothie.js"></script>
+    <script type="text/javascript" src="reconnecting-websocket.min.js"></script>
+    <script type="text/javascript">
+
+      var readings = new TimeSeries();
+      
+      function createTimeline() {
+        
+        var chart = new SmoothieChart({millisPerPixel:15,
+            interpolation:'linear',
+            grid:{millisPerLine:1000,verticalSections:8,borderVisible:false},
+            timestampFormatter:SmoothieChart.timeFormatter,
+            maxValue:600,
+            minValue:-200,
+            horizontalLines:[{color:'#ffffff',lineWidth:1,value:0},{color:'#880000',lineWidth:2,value:3333},{color:'#880000',lineWidth:2,value:-3333}]}),
+            canvas = document.getElementById('smoothie-chart'),
+            series = new TimeSeries();
+
+        chart.addTimeSeries(readings, {
+            lineWidth:1,strokeStyle:'#00ff00'});
+        chart.streamTo(document.getElementById("chart"), 50);
+      }
+
+      var ws = new ReconnectingWebSocket('ws://raspberrypi:8080/');
+      ws.onopen = function() {
+        document.body.style.backgroundColor = '#cfc';
+      };
+      ws.onclose = function() {
+        document.body.style.backgroundColor = null;
+      };
+      ws.onmessage = function(event) {
+        var data = event.data.split(",");
+        readings.append(Number(data[0])*1000, Number(data[1]));
+        //var time = parseFloat(data[0])*1000;
+        //var wei  = parseFloat(data[1]);
+        //var time = Number(data[0])*1000;
+        //var wei  = Number(data[1]);
+        //readings.append(time, wei);
+      };
+
+    </script>
+  </head>
+  <body onload="createTimeline()">
+    <h2> Weight readings from HX711 </h2>
+    <canvas id="chart" width="1500" height="600"></canvas>
+  </body>
+</html>
