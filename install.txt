@@ -1,0 +1,42 @@
+
+# enable camera: interface -> camera
+sudo raspi-config
+
+sudo apt-get install git
+
+git clone https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git
+cd RPi_Cam_Web_Interface
+./install.sh
+cd ..
+
+# set settings in online tool for camera
+# 192.168.178.48/html/
+# flip: both
+# sharpness: 80
+# preset: maxview
+# fps: 8
+
+# install some python tools
+sudo apt install python-setuptools python3-setuptools
+
+# install pigpio
+wget https://github.com/joan2937/pigpio/archive/master.zip
+unzip master.zip
+cd pigpio-master
+make
+sudo make install
+cd ..
+
+# copy websocketd executable to /home/pi
+chmod u+x websocketd
+
+# compile HX711C
+cd HX711C
+gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt
+chmod u+x run.sh
+./run.sh
+cd ..
+
+# add to startup
+sudo nano /etc/rc.local
+# add "sudo /home/pi/HX711C/run.sh" at bottom of file (but before exit)
