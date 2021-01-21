@@ -21,15 +21,27 @@ I am sure some things will be missing here. You need some basic skills to instal
 2. (if you want to visualize the data in a browser)
     1. Install websocketd https://github.com/joewalnes/websocketd/releases
        Pick the arm version for the Pi: e.g. websocketd-0.3.1-linux_arm.zip
-    2. Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)
-       Copy weigh.html to /var/www/html/ for making it accessible to the outside world
+    2. Install a webserver, e.g. https://elinux.org/RPi-Cam-Web-Interface (I am using this for an attached camera anyway)  
+       Copy weigh.html to /var/www/html/ for making it accessible to the outside world  
        Get the two .js files from here https://github.com/perrygeo/pi_sensor_realtime/tree/master/static/vendor and copy them to /var/www/html/
-3. Compile HX711.cpp: "gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt"
-    1. Try it out: "sudo ./HX711"
-    2. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
+3. Adjust HX711.cpp to your needs. Take a look at the first lines of the code for user settings, like Gain, etc.
+    1. Compile HX711.cpp: "gcc -Wall -pthread -o HX711 HX711.cpp -lpigpio -lrt"
+    2. Try it out: "sudo ./HX711"
+    3. Adjust "run.sh" if necessary to set up everything to your needs (if you want to visualize the data in a browser)
 
 # Readings example
+Output is the Unix epoch time in seconds and the reading in gram, separated by a comma. You can observe that every ~11ms, a new reading pops up.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingShell.png" width="250">
 
+# CPU usage
+Only running the C code takes up 12% CPU time (88%id) on the Pi Zero W.  
+<img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/CPUusage.png" width="500">
+
+Also viewing the result in the browser leaves a bit less than 40% idle. websocketd and the server take up a lot. This could be a next starting point for an improvement.  
+<img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/CPUusageBrowser.png" width="500">
+
+Also viewing the attached camera leaves no idle time and leads to some hickups - it is a close call. But well, enough for my needs not to use it at the same time.
+
 # Reading example (browser)
+No outliers and very sensitive readings. :) These initial waves are coming from me touching the table where the sensor is put.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingBrowser.png" width="700">
