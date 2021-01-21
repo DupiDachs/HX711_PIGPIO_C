@@ -34,13 +34,13 @@ Output is the Unix epoch time in seconds and the reading in gram, separated by a
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingShell.png" width="250">
 
 # CPU usage
-Only running the C code takes up 12% CPU time (88%id) on the Pi Zero W.  
+Only running the C code takes up 17% CPU time (83%id) on the Pi Zero W.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/CPUusage.png" width="500">
 
-Also viewing the result in the browser leaves a bit less than 40% idle. websocketd and the server take up a lot. This could be a next starting point for an improvement.  
+Also viewing the result in the browser leaves a bit more than 60% idle.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/CPUusageBrowser.png" width="500">
 
-Also viewing the attached camera leaves no idle time and leads to some hickups - it is a close call. But well, enough for my needs not to use it at the same time.
+Also viewing the attached camera is no issue and still leaves us with more than 50% idle. :)
 
 # Reading example (browser)
 No outliers and very sensitive readings. :) These initial waves are coming from me touching the table where the sensor is put.  
