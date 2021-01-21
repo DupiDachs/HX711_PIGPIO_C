@@ -14,8 +14,9 @@ The idea is to measure the force required to extrude filament of a direct extrud
 - Redirect the readings via stdout to a file. 
 - Let websocketd handle communication between a browser and a html page to display the readings.
 
-# Step by step procedure
-I am sure some things will be missing here. You need some basic skills to install required packages yourself if neccessary...
+# The procedure
+There might be some things missing. You need some basic skills to install required packages yourself if neccessary and to handle your shell...
+Take a look at install.txt for more details.
 
 1. Install pigpio http://abyz.me.uk/rpi/pigpio/download.html
 2. (if you want to visualize the data in a browser)
@@ -43,5 +44,5 @@ Also viewing the result in the browser leaves a bit more than 60% idle.
 Also viewing the attached camera is no issue and still leaves us with more than 50% idle. :)
 
 # Reading example (browser)
-No outliers and very sensitive readings. :) These initial waves are coming from me touching the table where the sensor is put.  
+No outliers and very sensitive readings. :) These initial waves are coming from me knocking on the table where the sensor is put.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/readingBrowser.png" width="700">
