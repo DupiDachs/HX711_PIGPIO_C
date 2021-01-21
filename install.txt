@@ -16,6 +16,11 @@ cd ..
 # preset: maxview
 # fps: 8
 
+# copy weigh.html
+sudo cp weigh.html /var/www/html
+sudo chgrp www-data /var/www/html/weigh.html
+sudo chown www-data /var/www/html/weigh.html
+
 # install some python tools
 sudo apt install python-setuptools python3-setuptools
 
