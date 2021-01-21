@@ -3,7 +3,7 @@ Simple but effective way to read the HX711 ADC on your Pi at a rate of 80 sample
 
 On my way of reading out data from the HX711 with the Pi Zero W, I came across alot of libraries, which in the end had some sort of shortcoming:
 - Most of them did not handle timings right and generated outliers from time to time
-- The python implementation on the pigpio (an impressive library! kudos.) website works fine, but requires too much CPU power for the Pi Zero W at a rate of 80 samples per second. In my application, I would have to waive 2 of 3 readings to have enough headroom left for the rest of the tasks.
+- The python implementation on the pigpio (an impressive library! kudos.) website works fine, but requires too much CPU power for the Pi Zero W at a rate of 80 samples per second. In my application, I would have to waive 1 of 2 readings to have enough headroom left for the rest of the tasks.
 - Pigpio has a tick limit of ~72mins, the tool should account for this
 
 # My application
@@ -41,7 +41,7 @@ Only running the C code takes up 17% CPU time (83%id) on the Pi Zero W.
 Also viewing the result in the browser leaves a bit more than 60% idle.  
 <img src="https://github.com/DupiDachs/HX711_PIGPIO_C/blob/main/screenshots/CPUusageBrowser.png" width="500">
 
-Also viewing the attached camera is no issue and still leaves us with more than 50% idle. :)
+Also viewing the attached camera is no issue and still leaves us with more than 50% idle. It is roughly an improvement of factor 4-5 against the python code. :)
 
 # Reading example (browser)
 No outliers and very sensitive readings. :) These initial waves are coming from me knocking on the table where the sensor is put.  
