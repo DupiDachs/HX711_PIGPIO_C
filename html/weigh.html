@@ -2,20 +2,58 @@
 <html>
   <head>
     <title>Pi sensor real-time plots</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<script language="Javascript">
+function start(){
+    setTimeout('refreshIt()',250);
+    createTimeline();
+}
+</script>
+
+<script language="JavaScript">
+function refreshIt() {
+   if (!document.images) return;
+   document.images['cam'].src = 'cam_pic.php?' + Math.random();
+   setTimeout('refreshIt()',250); // refresh every sec
+}
+</script>
+
     <script type="text/javascript" src="smoothie.js"></script>
     <script type="text/javascript" src="reconnecting-websocket.min.js"></script>
     <script type="text/javascript">
-
       var readings = new TimeSeries();
-      
+      function buttonClick() {
+        const text = document.getElementById("offset");
+        text.value = String(Number(text.value)-readings.data.at(-1)[1]);
+        }
+      function myYRangeFunction(range) {
+        const minT = document.getElementById("min");
+        var minN = Number(minT.value);
+        if (isNaN(minN)) {
+          minN = -200;
+        }
+        const maxT = document.getElementById("max");
+        var maxN = Number(maxT.value);
+        if (isNaN(maxN)) {
+          maxN = 600;
+        }
+        if (maxN<minN) {
+          maxN = minN+100;
+        }
+
+        return {min: minN, max: maxN};
+      }
+
       function createTimeline() {
         
         var chart = new SmoothieChart({millisPerPixel:15,
+            yRangeFunction:myYRangeFunction,
             interpolation:'linear',
             grid:{millisPerLine:1000,verticalSections:8,borderVisible:false},
             timestampFormatter:SmoothieChart.timeFormatter,
-            maxValue:600,
-            minValue:-200,
             horizontalLines:[{color:'#ffffff',lineWidth:1,value:0},{color:'#880000',lineWidth:2,value:3333},{color:'#880000',lineWidth:2,value:-3333}]}),
             canvas = document.getElementById('smoothie-chart'),
             series = new TimeSeries();
@@ -33,19 +71,51 @@
         document.body.style.backgroundColor = null;
       };
       ws.onmessage = function(event) {
+        const text = document.getElementById("offset");
+        var offset = Number(text.value);
+        if (isNaN(offset)) {
+          offset = 200;
+        }
         var data = event.data.split(",");
-        readings.append(Number(data[0])*1000, Number(data[1]));
-        //var time = parseFloat(data[0])*1000;
-        //var wei  = parseFloat(data[1]);
-        //var time = Number(data[0])*1000;
-        //var wei  = Number(data[1]);
-        //readings.append(time, wei);
+        readings.append(Number(data[0])*1000, offset+Number(data[1]));
       };
-
     </script>
   </head>
-  <body onload="createTimeline()">
-    <h2> Weight readings from HX711 </h2>
-    <canvas id="chart" width="1500" height="600"></canvas>
+  <body onload="start()">
+    <canvas id="chart" width="1000" height="500"></canvas>
+    <br>
+  Offset/Min/Max:
+  <script>
+    const offset = document.createElement("input");
+    offset.setAttribute("type", "text");
+    offset.setAttribute("id", "offset");
+    document.body.appendChild(offset);
+    const text = document.getElementById("offset");
+    text.value = "200";
+
+    const min = document.createElement("input");
+    min.setAttribute("type", "text");
+    min.setAttribute("id", "min");
+    document.body.appendChild(min);
+    const text2 = document.getElementById("min");
+    text2.value = "-200";
+
+    const max = document.createElement("input");
+    max.setAttribute("type", "text");
+    max.setAttribute("id", "max");
+    document.body.appendChild(max);
+    const text3 = document.getElementById("max");
+    text3.value = "600";
+
+    var button = document.createElement("button");
+    var tbutton = document.createTextNode("Zero");
+    button.appendChild(tbutton);
+    button.onclick = function() {
+      buttonClick();
+    }
+    document.body.appendChild(button);
+  </script>
+    <br> <br>
+    <img id=cam src='cam_pic.php'>
   </body>
 </html>
